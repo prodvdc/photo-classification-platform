@@ -1,0 +1,89 @@
+version: "3.9"
+
+
+
+services:
+
+  db:
+
+    image: postgres:15
+
+    environment:
+
+      POSTGRES_DB: photo_platform
+
+      POSTGRES_USER: postgres
+
+      POSTGRES_PASSWORD: postgres
+
+    volumes:
+
+      - db_data:/var/lib/postgresql/data
+
+    ports:
+
+      - "5432:5432"
+
+
+
+  api:
+
+    build:
+
+      context: ./services/api
+
+    environment:
+
+      DATABASE_URL: postgresql+psycopg2://postgres:postgres@db:5432/photo_platform
+
+      JWT_SECRET: change-me
+
+      JWT_ALGORITHM: HS256
+
+      JWT_EXP_MINUTES: 60
+
+      ADMIN_EMAIL: admin@example.com
+
+      ADMIN_PASSWORD: admin123
+
+      CLASSIFIER_URL: http://classifier:8001
+
+      STORAGE_PATH: /data/photos
+
+      MAX_UPLOAD_BYTES: 5242880
+
+    volumes:
+
+      - photo_data:/data/photos
+
+    ports:
+
+      - "8000:8000"
+
+    depends_on:
+
+      - db
+
+      - classifier
+
+
+
+  classifier:
+
+    build:
+
+      context: ./services/classifier
+
+    ports:
+
+      - "8001:8001"
+
+
+
+volumes:
+
+  db_data:
+
+  photo_data:
+
+

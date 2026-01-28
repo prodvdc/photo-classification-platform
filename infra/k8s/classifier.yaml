@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: photo-classifier
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: photo-classifier
+  template:
+    metadata:
+      labels:
+        app: photo-classifier
+    spec:
+      containers:
+        - name: classifier
+          image: your-registry/photo-classifier:latest
+          ports:
+            - containerPort: 8001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: photo-classifier
+spec:
+  selector:
+    app: photo-classifier
+  ports:
+    - port: 8001
+      targetPort: 8001

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Panel</title>
+    <style>
+      body { font-family: "Segoe UI", Tahoma, sans-serif; margin: 2rem; color: #1b1b1b; }
+      h1 { margin-bottom: 0.25rem; }
+      table { border-collapse: collapse; width: 100%; margin-top: 1.5rem; }
+      th, td { border: 1px solid #e0e0e0; padding: 0.5rem; font-size: 0.9rem; }
+      th { background: #f6f6f6; text-align: left; }
+      .meta { color: #666; }
+    </style>
+  </head>
+  <body>
+    <h1>Admin Panel</h1>
+    <p class="meta">Signed in as {{ admin_email }}</p>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Location</th>
+          <th>Country</th>
+          <th>Gender</th>
+          <th>Photo Path</th>
+          <th>Classification</th>
+          <th>Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for submission in submissions %}
+        <tr>
+          <td>{{ submission.id }}</td>
+          <td>{{ submission.user_id }}</td>
+          <td>{{ submission.name }}</td>
+          <td>{{ submission.age }}</td>
+          <td>{{ submission.place_of_living }}</td>
+          <td>{{ submission.country_of_origin }}</td>
+          <td>{{ submission.gender }}</td>
+          <td>{{ submission.photo_path }}</td>
+          <td>{{ submission.classification_result }}</td>
+          <td>{{ submission.created_at }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
