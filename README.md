@@ -98,7 +98,7 @@ Configured via environment variables:
 
 
 
-- `ADMIN_EMAIL=admin@example.com`
+- `ADMIN_EMAIL=admin@photoclassify.com`
 
 
 
